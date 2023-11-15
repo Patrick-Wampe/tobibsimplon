@@ -142,7 +142,6 @@ def formulaireSante(request):
     periodiciteMedecin = Utilisateur.objects.filter(username=medecinTraitant)[0].periodiciteFormulaireSante
     prochainFormulaire = dateDernierFormulaireDuPatient + timedelta(days=periodiciteMedecin)
     remplirProchainFormulaire = datetime.now().date() < prochainFormulaire
-    print("remplirProchainFormulaire :", remplirProchainFormulaire)
     if request.method == "POST":
        #formulaire = FormulaireSanteForm(request.POST)
        #if formulaire.is_valid():
