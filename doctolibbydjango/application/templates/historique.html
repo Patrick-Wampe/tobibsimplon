@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<title>Historique des formulaires</title>
+
+<h1>Bonjour {{ user.username }} !</h1>
+{% if user.role == "responsable" %}
+<h2>Table données Formulaire santé responsable</h2>
+<table id="example">
+    <thead>
+        <tr>
+            {% for colonne in champsFormulaireSante %}
+            <th>
+                {{ colonne }}
+            </th>
+            {% endfor %}
+        </tr>
+    </thead>
+    {% for data in dataFormulaireSante %}
+    <tr>
+        {% for element in data %}
+            <th>
+            {{ element }}
+            </th>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+    <h2>Table données Formulaire santé</h2>
+    <table id="example">
+        <thead>
+            <tr>
+                {% for colonne in champsFormulaireSante %}
+                <th>
+                    {{ colonne }}
+                </th>
+                {% endfor %}
+            </tr>
+        </thead>
+        {% for data in dataFormulaireSanteMedecinPatients %}
+        <tr>
+            {% for element in data %}
+                <th>
+                {{ element }}
+                </th>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+{% endif %}
+
+{% endblock %}
