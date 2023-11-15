@@ -6,8 +6,9 @@ from application.models import FormulaireSante
 from application.forms import FormulaireSanteForm 
 import os
 from django.http import HttpResponse
-import datetime
 import numpy as np
+from datetime import datetime, date, timedelta
+
 
 @login_required
 def accueil(request):
@@ -134,6 +135,14 @@ def associationMedecinPatient(request):
 
 @login_required
 def formulaireSante(request):
+    message = ""
+    disabled = ""
+    dateDernierFormulaireDuPatient = list(FormulaireSante.objects.filter(patient=Utilisateur.objects.filter(username=request.user.username)[0]))[-1].date_remplissage
+    medecinTraitant = medecinPatient.objects.filter(idPatient = Utilisateur.objects.filter(username=request.user.username)[0].id)[0].idMedecin
+    periodiciteMedecin = Utilisateur.objects.filter(username=medecinTraitant)[0].periodiciteFormulaireSante
+    prochainFormulaire = dateDernierFormulaireDuPatient + timedelta(days=periodiciteMedecin)
+    remplirProchainFormulaire = datetime.now().date() < prochainFormulaire
+    print("remplirProchainFormulaire :", remplirProchainFormulaire)
     if request.method == "POST":
        #formulaire = FormulaireSanteForm(request.POST)
        #if formulaire.is_valid():
@@ -142,10 +151,13 @@ def formulaireSante(request):
        print(dict(request.POST).items())
     else:
         #formulaire = FormulaireSanteForm()
-        pass
-    return render(request,
-                  "formulaireSante.html")#,
-                  #{"formulaire" : formulaire})
+        if remplirProchainFormulaire:
+            message = f"Le prochain formulaire devra être remplie le {prochainFormulaire}"
+            disabled = "disabled"
+        return render(request,
+                  "formulaireSante.html",
+                  {"message" : message,
+                   "disabled" : disabled})
 
 
 #class ApplicationWizardView(SessionWizardView):

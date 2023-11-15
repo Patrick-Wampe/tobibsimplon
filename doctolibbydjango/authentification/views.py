@@ -43,7 +43,7 @@ def inscription(request):
 
 
 def alimentationPatients():
-    listePatients = pd.read_csv("/Users/narcy/Desktop/revision Django/doctolibbydjango/authentification/datas/listePatients.csv")
+    listePatients = pd.read_csv("/Users/narcy/Documents/Simplon/revision Django/tobibsimplon/doctolibbydjango/authentification/datas/listePatients.csv")
     for index, valeurs in listePatients.iterrows():
         #champDBB = Utilisateur._meta.get_fields()
         
@@ -51,7 +51,7 @@ def alimentationPatients():
                                         password = valeurs.motDePasse,
                                         role="patient")
 def alimentationMedecin():
-    listeMedecins = pd.read_csv("/Users/narcy/Desktop/revision Django/doctolibbydjango/authentification/datas/listeMedecins.csv")
+    listeMedecins = pd.read_csv("/Users/narcy/Documents/Simplon/revision Django/tobibsimplon/doctolibbydjango/authentification/datas/listeMedecins.csv")
     for index, valeurs in listeMedecins.iterrows():
         Utilisateur.objects.create_user(username = valeurs.username,
                                         password = valeurs.motDePasse,

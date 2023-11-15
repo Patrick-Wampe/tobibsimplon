@@ -4,7 +4,6 @@ from authentification.models import Utilisateur
 class FormulaireSante(models.Model):
     patient = models.ForeignKey(Utilisateur, on_delete=models.CASCADE)
     date_remplissage = models.DateField()
-    periodicite_jours = models.IntegerField()
     is_late = models.BooleanField(default=False)
     poids = models.FloatField()
     tour_de_taille_cm = models.FloatField()

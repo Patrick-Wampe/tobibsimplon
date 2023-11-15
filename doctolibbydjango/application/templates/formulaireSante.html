@@ -3,7 +3,8 @@
 {% block content %}
 <title>Formulaire Santé</title>
 
-<h1>Bienvenue dans le formulaire santé {{prenom}} !</h1>
+<h1>Bienvenue dans le formulaire santé {{ user.username }} !</h1>
+<h2>{{ message }}</h2>
 <form id="formContainer" method="post">
     {% csrf_token %}
     {{ formulaire.as_p }}
@@ -15,7 +16,7 @@
     <p><input type="text" name="e" value="e"></p>
     <p><input type="text" name="f" value="f"></p>
     <button type="button" id="nextBtn">Suivant</button>
-    <button type="submit" id="submitBtn" style="display:none;">Envoyer</button>
+    <button type="submit" id="submitBtn" style="display:none;" {{disabled}}>Envoyer</button>
 </form>
 
 <script>

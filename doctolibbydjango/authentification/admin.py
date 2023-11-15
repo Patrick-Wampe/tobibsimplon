@@ -7,12 +7,15 @@ class colonnes(admin.ModelAdmin):
     #search_fields = #['username','role']
 
 
+admin.site.register(Utilisateur, colonnes)
+
 class colonnesMedecinPatient(admin.ModelAdmin):
     #list_display = ("id", "username", "role", "email","is_superuser",)  #[field.name for field in Utilisateur._meta.get_fields()]
     list_display = [field.name for field in medecinPatient._meta.get_fields()]
 
-admin.site.register(Utilisateur, colonnes)
 admin.site.register(medecinPatient, colonnesMedecinPatient)
+
+
 """
 >>> from authentification.models import Utilisateur
 >>> tuple([field.name for field in Utilisateur._meta.get_fields()])

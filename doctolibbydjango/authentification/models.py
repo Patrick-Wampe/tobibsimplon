@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 class Utilisateur(AbstractUser):
+    periodiciteFormulaireSante = models.IntegerField(null=True,  blank=True, default=1)
+    periodiciteFormulaireStress = models.IntegerField(null=True,  blank=True, default=5)
     lesRoles = (
         ('patient', 'patient'),
         ("medecin", 'medecin'),
@@ -11,8 +13,6 @@ class Utilisateur(AbstractUser):
     role = models.CharField(max_length=30, 
                             choices=lesRoles, 
                             verbose_name='Rôle', null=True)
-    periodiciteFormulaireSante = models.IntegerField(null=True)
-    periodiciteFormulaireStress = models.IntegerField(null=True)
 
 
 """
@@ -22,7 +22,6 @@ class Connexion(models.Model):
 
     motDePasse = models.CharField(max_length=50)
 """
-
 
 class medecinPatient(models.Model):
     idPatient = models.ForeignKey(Utilisateur, 
